@@ -1,0 +1,88 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+  tomcat:
+    max-swallow-size: 20MB
+    max-http-form-post-size: 20MB
+
+spring:
+  application:
+    name: interview-ai
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/interview_ai
+    username: postgres
+    password: postgres
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 25
+        order_inserts: true
+        order_updates: true
+        format_sql: false
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+    time-zone: UTC
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: method
+  paths-to-match: /api/v1/**
+
+app:
+  security:
+    jwt:
+      secret: ${JWT_SECRET:interviewai-super-secret-signing-key-please-change-in-production-2026}
+      access-token-expiration-ms: 900000
+      refresh-token-expiration-ms: 604800000
+      remember-me-expiration-ms: 2592000000
+    cors:
+      allowed-origins: ${CORS_ORIGINS:http://localhost:5173}
+      allowed-methods: GET,POST,PUT,PATCH,DELETE,OPTIONS
+    rate-limit:
+      capacity: 120
+      refill-per-minute: 60
+  storage:
+    root: ${STORAGE_ROOT:./uploads}
+    max-file-size-mb: 20
+  ai:
+    gemini:
+      api-key: ${GEMINI_API_KEY:}
+      base-url: https://generativelanguage.googleapis.com
+      model: gemini-flash-latest
+      timeout-seconds: 60
+  mail:
+    simulated: true
+  seed:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    com.interviewai: DEBUG
+    org.hibernate.SQL: WARN
