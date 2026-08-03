@@ -83,7 +83,7 @@ public class DataSeeder implements CommandLineRunner {
         Set<Role> roles = seedRoles();
         seedPermissions();
         User admin = seedUser("System", "Admin", "admin@interviewai.com", "Admin@123", UserRole.ADMIN, roles);
-        User recruiter = seedUser("Rahul", "Sharma", "recruiter@interviewai.com", "Recruiter@123", UserRole.RECRUITER, roles);
+        User recruiter = seedUser("Harsh", "Dubey", "recruiter@interviewai.com", "Recruiter@123", UserRole.RECRUITER, roles);
         seedUser("Priya", "Verma", "candidate@interviewai.com", "Candidate@123", UserRole.CANDIDATE, roles);
 
         Map<String, Skill> skills = seedSkills();
