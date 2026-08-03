@@ -72,7 +72,7 @@ JUnit 5 · Mockito · Vite `tsc` + build
 
 ## Demo
 
-<video src="screenshots/demo.webm" controls="controls" style="max-width: 100%;"></video>
+<video src="demo/demo.webm" controls="controls" style="max-width: 100%;"></video>
 
 A short walkthrough: candidate login → job search → job detail → resumes with ATS scores → coding assessments → recruiter dashboard → applications review → analytics.
 
