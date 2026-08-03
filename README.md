@@ -1,5 +1,7 @@
 # Harvix AI — AI-Powered Recruitment Platform
 
+[![CI](https://github.com/Harsh1234Dubey/harvix-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/Harsh1234Dubey/harvix-ai/actions/workflows/ci.yml)
+
 > Enterprise-grade AI recruitment SaaS that runs 100% on localhost.
 
 ## Overview

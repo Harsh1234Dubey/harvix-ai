@@ -26,3 +26,4 @@ Thumbs.db
 
 # Tooling / agent hooks (not project code)
 .github/
+!.github/workflows/
