@@ -90,7 +90,7 @@ public class DataSeeder implements CommandLineRunner {
         seedAchievements();
         seedQuestions();
         CodingTest twoSum = seedCodingTest(admin);
-        seedCompany(recruiter, skills);
+        seedCompanies(recruiter, skills);
         log.info("DataSeeder finished. Admin login: admin@interviewai.com / Admin@123");
     }
 
@@ -171,10 +171,14 @@ public class DataSeeder implements CommandLineRunner {
                 Map.entry("Spring Boot", skillRepository.findByNameIgnoreCase("Spring Boot").orElseThrow()),
                 Map.entry("Python", skillRepository.findByNameIgnoreCase("Python").orElseThrow()),
                 Map.entry("JavaScript", skillRepository.findByNameIgnoreCase("JavaScript").orElseThrow()),
+                Map.entry("TypeScript", skillRepository.findByNameIgnoreCase("TypeScript").orElseThrow()),
                 Map.entry("React", skillRepository.findByNameIgnoreCase("React").orElseThrow()),
                 Map.entry("SQL", skillRepository.findByNameIgnoreCase("SQL").orElseThrow()),
+                Map.entry("PostgreSQL", skillRepository.findByNameIgnoreCase("PostgreSQL").orElseThrow()),
                 Map.entry("Docker", skillRepository.findByNameIgnoreCase("Docker").orElseThrow()),
-                Map.entry("System Design", skillRepository.findByNameIgnoreCase("System Design").orElseThrow()));
+                Map.entry("Kubernetes", skillRepository.findByNameIgnoreCase("Kubernetes").orElseThrow()),
+                Map.entry("System Design", skillRepository.findByNameIgnoreCase("System Design").orElseThrow()),
+                Map.entry("Machine Learning", skillRepository.findByNameIgnoreCase("Machine Learning").orElseThrow()));
     }
 
     private void seedAchievements() {
@@ -255,15 +259,66 @@ public class DataSeeder implements CommandLineRunner {
         return test;
     }
 
-    private void seedCompany(User recruiter, Map<String, Skill> skills) {
+    private void seedCompanies(User recruiter, Map<String, Skill> skills) {
+        Company innotech = seedCompany(recruiter, "InnoTech Labs", "innotech-labs",
+                "A product engineering company building developer tools.",
+                "Technology", "Bengaluru, India", "50-200", 2018);
+
+        seedJob(recruiter, innotech, "Senior Backend Engineer", "senior-backend-engineer",
+                "Design and build scalable backend services for our SaaS platform.",
+                "5+ years in Java/Spring Boot; strong SQL and distributed systems knowledge.",
+                "Bengaluru, India", WorkMode.HYBRID, 4, 8, 3000000, 5000000,
+                List.of("Java", "Spring Boot", "SQL", "System Design"), skills);
+
+        seedJob(recruiter, innotech, "Backend Engineer II", "backend-engineer-ii",
+                "Own backend features end-to-end across our payments and identity services.",
+                "2+ years in Java/Spring Boot; solid PostgreSQL and REST API design.",
+                "Bengaluru, India", WorkMode.HYBRID, 2, 5, 1800000, 3200000,
+                List.of("Java", "Spring Boot", "PostgreSQL", "Docker"), skills);
+
+        seedJob(recruiter, innotech, "Platform Engineer", "platform-engineer",
+                "Build and operate the Kubernetes platform that runs all of our services.",
+                "3+ years with Docker/Kubernetes; experience with observability and CI/CD.",
+                "Bengaluru, India", WorkMode.ONSITE, 3, 6, 2500000, 4200000,
+                List.of("Docker", "Kubernetes", "System Design", "PostgreSQL"), skills);
+
+        Company nimbus = seedCompany(recruiter, "NimbusWorks", "nimbusworks",
+                "Cloud-native SaaS helping teams ship software faster.",
+                "Cloud Computing", "Pune, India", "201-500", 2015);
+
+        seedJob(recruiter, nimbus, "Senior Frontend Engineer", "senior-frontend-engineer",
+                "Craft the developer-facing dashboard used by thousands of teams daily.",
+                "3+ years in React/TypeScript; strong design systems and performance skills.",
+                "Pune, India", WorkMode.REMOTE, 3, 6, 2200000, 3800000,
+                List.of("React", "TypeScript", "JavaScript", "SQL"), skills);
+
+        seedJob(recruiter, nimbus, "Cloud DevOps Engineer", "cloud-devops-engineer",
+                "Automate infrastructure, CI/CD pipelines, and multi-cloud networking.",
+                "2+ years in Terraform/Kubernetes; Python scripting and Linux expertise.",
+                "Pune, India", WorkMode.HYBRID, 2, 5, 2000000, 3500000,
+                List.of("Docker", "Kubernetes", "Python", "SQL"), skills);
+
+        Company datacraft = seedCompany(recruiter, "DataCraft AI", "datacraft-ai",
+                "Applied AI studio building production machine learning systems.",
+                "Artificial Intelligence", "Hyderabad, India", "50-200", 2020);
+
+        seedJob(recruiter, datacraft, "Machine Learning Engineer", "machine-learning-engineer",
+                "Build and deploy ML models that power our recommendation platform.",
+                "3+ years in Python and ML frameworks; strong SQL and distributed systems.",
+                "Hyderabad, India", WorkMode.HYBRID, 3, 7, 2800000, 4600000,
+                List.of("Python", "Machine Learning", "SQL", "System Design"), skills);
+    }
+
+    private Company seedCompany(User recruiter, String name, String slug, String description,
+                                String industry, String location, String sizeRange, int foundedYear) {
         Company company = new Company();
-        company.setName("InnoTech Labs");
-        company.setSlug("innotech-labs");
-        company.setDescription("A product engineering company building developer tools.");
-        company.setIndustry("Technology");
-        company.setLocation("Bengaluru, India");
-        company.setSizeRange("50-200");
-        company.setFoundedYear(2018);
+        company.setName(name);
+        company.setSlug(slug);
+        company.setDescription(description);
+        company.setIndustry(industry);
+        company.setLocation(location);
+        company.setSizeRange(sizeRange);
+        company.setFoundedYear(foundedYear);
         company.setVerified(true);
         company.setCreatedBy(recruiter);
         companyRepository.save(company);
@@ -274,27 +329,33 @@ public class DataSeeder implements CommandLineRunner {
         member.setRoleInCompany("Hiring Lead");
         member.setOwner(true);
         companyMemberRepository.save(member);
+        return company;
+    }
 
+    private void seedJob(User recruiter, Company company, String title, String slug, String description,
+                         String requirements, String location, WorkMode workMode,
+                         int experienceMin, int experienceMax, int salaryMin, int salaryMax,
+                         List<String> skillNames, Map<String, Skill> skills) {
         Job job = new Job();
         job.setCompany(company);
         job.setPostedBy(recruiter);
-        job.setTitle("Senior Backend Engineer");
-        job.setSlug("senior-backend-engineer");
-        job.setDescription("Design and build scalable backend services for our SaaS platform.");
-        job.setRequirements("5+ years in Java/Spring Boot; strong SQL and distributed systems knowledge.");
-        job.setLocation("Bengaluru, India");
-        job.setWorkMode(WorkMode.HYBRID);
+        job.setTitle(title);
+        job.setSlug(slug);
+        job.setDescription(description);
+        job.setRequirements(requirements);
+        job.setLocation(location);
+        job.setWorkMode(workMode);
         job.setEmploymentType(EmploymentType.FULL_TIME);
-        job.setExperienceMin(4);
-        job.setExperienceMax(8);
-        job.setSalaryMin(new BigDecimal("3000000"));
-        job.setSalaryMax(new BigDecimal("5000000"));
+        job.setExperienceMin(experienceMin);
+        job.setExperienceMax(experienceMax);
+        job.setSalaryMin(new BigDecimal(salaryMin));
+        job.setSalaryMax(new BigDecimal(salaryMax));
         job.setCurrency("INR");
         job.setStatus(JobStatus.PUBLISHED);
         job.setPublishedAt(Instant.now());
         jobRepository.save(job);
 
-        for (String name : List.of("Java", "Spring Boot", "SQL", "System Design")) {
+        for (String name : skillNames) {
             JobSkill jobSkill = new JobSkill();
             jobSkill.setJob(job);
             jobSkill.setSkill(skills.get(name));

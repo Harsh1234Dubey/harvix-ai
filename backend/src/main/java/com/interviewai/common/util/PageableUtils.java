@@ -24,6 +24,15 @@ public final class PageableUtils {
             if (trimmed.isEmpty()) {
                 continue;
             }
+            if (trimmed.equalsIgnoreCase("asc") || trimmed.equalsIgnoreCase("desc")) {
+                if (!orders.isEmpty()) {
+                    Sort.Order prev = orders.remove(orders.size() - 1);
+                    Sort.Direction dir = trimmed.equalsIgnoreCase("asc")
+                            ? Sort.Direction.ASC : Sort.Direction.DESC;
+                    orders.add(new Sort.Order(dir, prev.getProperty()));
+                }
+                continue;
+            }
             String[] parts = trimmed.split(":");
             String property = parts[0];
             Sort.Direction direction = parts.length > 1 && parts[1].equalsIgnoreCase("asc")
