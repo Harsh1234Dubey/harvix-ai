@@ -50,6 +50,24 @@ JUnit 5 · Mockito · Vite `tsc` + build
 - **Analytics & Reports:** Dashboard metrics and downloadable reports (PDF/CSV)
 - **Security:** Spring Security, JWT, BCrypt, RBAC, CORS, rate limiting, validation, global exception handling, audit logging
 
+## Screenshots
+
+| Landing | Candidate dashboard |
+|---|---|
+| ![Landing](screenshots/landing.png) | ![Candidate dashboard](screenshots/candidate-dashboard.png) |
+
+| Job search | Job detail |
+|---|---|
+| ![Job search](screenshots/jobs.png) | ![Job detail](screenshots/job-detail.png) |
+
+| Resumes & ATS scores | Coding assessments |
+|---|---|
+| ![Resumes & ATS](screenshots/resumes-ats.png) | ![Coding](screenshots/coding.png) |
+
+| Recruiter dashboard | Recruiter analytics |
+|---|---|
+| ![Recruiter dashboard](screenshots/recruiter-dashboard.png) | ![Analytics](screenshots/recruiter-analytics.png) |
+
 ---
 
 ## Getting Started
