@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+dist/
+build/
+target/
+*.log
+.env
+.env.local
+
+# Uploads (runtime files)
+backend/uploads/
+uploads/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Postman/keys
+*.p12
+*.jks
+
+# Tooling / agent hooks (not project code)
+.github/
