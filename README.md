@@ -70,6 +70,12 @@ JUnit 5 · Mockito · Vite `tsc` + build
 |---|---|
 | ![Recruiter dashboard](screenshots/recruiter-dashboard.png) | ![Analytics](screenshots/recruiter-analytics.png) |
 
+## Demo
+
+<video src="screenshots/demo.webm" controls="controls" style="max-width: 100%;"></video>
+
+A short walkthrough: candidate login → job search → job detail → resumes with ATS scores → coding assessments → recruiter dashboard → applications review → analytics.
+
 ---
 
 ## Getting Started
