@@ -6,7 +6,7 @@ public final class AppConstants {
     public static final String DEFAULT_PAGE = "0";
     public static final String DEFAULT_SIZE = "20";
     public static final String MAX_SIZE = "100";
-    public static final String SORT_DEFAULT = "createdAt:desc";
+    public static final String SORT_DEFAULT = "id:desc";
 
     public static final String ROLE_ADMIN = "ADMIN";
     public static final String ROLE_RECRUITER = "RECRUITER";
