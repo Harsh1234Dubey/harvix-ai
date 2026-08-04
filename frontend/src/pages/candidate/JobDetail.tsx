@@ -23,11 +23,13 @@ export default function JobDetail() {
 
   useEffect(() => {
     if (!user?.roles.includes('CANDIDATE')) return
-    void get<{ content: Resume[] }>('/resumes/me').then((p) => {
-      setResumes(p.content)
-      const primary = p.content.find((r) => r.primary)
-      setResumeId(primary ? primary.id : (p.content[0]?.id ?? ''))
-    })
+    void get<Resume[]>('/resumes/me')
+      .then((list) => {
+        setResumes(list)
+        const primary = list.find((r) => r.primary)
+        setResumeId(primary ? primary.id : (list[0]?.id ?? ''))
+      })
+      .catch(() => {})
   }, [user])
 
   useEffect(() => {
